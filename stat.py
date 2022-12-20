@@ -12,7 +12,9 @@ for i ,j in enumerate(data['CAT_NAME'].unique()):
     row =  (i//3)+1
     col = (i%3)+1
     df_temp = data[data['CAT_NAME']==j]
-    fig.add_trace(go.Scatter(x=df_temp.columns[1:], y=df_temp.iloc[0,1:],name = j,showlegend = False,line = dict(color='royalblue', width=4)),row = row,col = col)
+    df_temp = df_temp.set_index('CAT_NAME')
+    df_temp = df_temp.sort_values(by=j,axis=1,ascending = False)
+    fig.add_trace(go.Bar(x=df_temp.columns[0:], y=df_temp.iloc[0,0:],name = j,showlegend = False),row = row,col = col)
 
 
 fig.update_layout(title_text="'SBL傻逼佬'")
